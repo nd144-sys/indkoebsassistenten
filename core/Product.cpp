@@ -2,7 +2,7 @@
 #include <string>
 
 Product::Product(std::string id, std::string name, std::string category)
-    : id_(id), name_(name), category_(category) {}
+    : id_(std::move(id)), name_(std::move(name)), category_(std::move(category)) {}
 
 const std::string& Product::id() const {
     return id_;
@@ -13,13 +13,13 @@ const std::string& Product::name() const {
 }
 
 const std::string& Product::category() const {
-    return name_;
+    return category_;
 }
 
 void Product::setName(std::string name) {
-    name_ = name;
+    name_ = std::move(name);
 }
 
 void Product::setCategory(std::string category) {
-    category_ = category;
+    category_ = std::move(category);
 }

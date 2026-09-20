@@ -1,8 +1,14 @@
 #include "ShoppingList.h"
 #include <vector>
+#include <stdexcept>
 
 ShoppingListItem::ShoppingListItem(std::string productId, double quantity)
-    : productId_(productId), quantity_(quantity) {}
+    : productId_(std::move(productId)), quantity_(quantity) {
+        /// Throw exception if quantity <= 0
+        if(quantity_ <= 0) {
+            throw std::invalid_argument("Quantity must be greater than 0");
+        }
+    }
 
 const std::string& ShoppingListItem::productId() const {
     return productId_;
@@ -19,6 +25,8 @@ bool ShoppingListItem::checked() const {
 void ShoppingListItem::setQuantity(double quantity) {
     if(quantity > 0) {
         quantity_ = quantity;   
+    } else {
+        throw std::invalid_argument("Quantity must be greater than 0");
     }
 } 
 
@@ -29,7 +37,7 @@ void ShoppingListItem::setChecked(bool checked) {
 
 
 ShoppingList::ShoppingList(std::string id, std::string name)
-    : id_(std::move(id)), name_(name) {}
+    : id_(std::move(id)), name_(std::move(name)) {}
 
 const std::string& ShoppingList::id() const {
     return id_;
@@ -44,7 +52,7 @@ const std::vector<ShoppingListItem>& ShoppingList::items() const {
 }
 
 void ShoppingList::setName(std::string name) {
-    name_ = name;
+    name_ = std::move(name);
 }
 
 void ShoppingList::addItem(ShoppingListItem item) {
