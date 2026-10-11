@@ -1,0 +1,26 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "C/C++: Build Test Suite",
+            "command": "cl.exe",
+            "args": [
+                "/std:c++20",
+                "core/testsuite/testSelectedStorePricer.cpp",
+                "core/SelectedStorePricer.cpp",
+                "core/ShoppingList.cpp",
+                "core/ShoppingListItem.cpp",
+                "core/Offer.cpp",
+                "/Fe:test_program.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
